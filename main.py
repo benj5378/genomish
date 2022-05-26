@@ -92,24 +92,39 @@ amino = {
     "UGA": "Stop",
 }
 
-DNA = ""
-DNAtemplate = ""  # Example: DNAtemplate = "3'-TACCCCAGCGGACGC-5'"
-RNA = ""
 
-def run():
-    global DNA
-    global DNAtemplate
-    global RNA
+def makeDNA(RNA="", DNAtemplate=""):
+    if RNA:
+        return RNA.replace("U", "T")
+    elif DNAtemplate:
+        return flip(complementary(DNAtemplate))
+    raise ValueError("Missing arguments")
+
+
+def makeRNA(DNA=""):
+    return DNA.replace("T", "U")
+
+
+def makeDNAtemplate(DNA=""):
+    return flip(complementary(DNA))
+
+
+def run(DNA="", RNA="", DNAtemplate=""):
     chain = ""
 
-    if RNA != "":
-        DNA = RNA.replace("U", "T")
-
-    if DNAtemplate != "":
-        DNA = flip(complementary(DNAtemplate))
-
-    RNA = DNA.replace("T", "U")
-    DNAtemplate = flip(complementary(DNA))
+    if bool(RNA) + bool(DNA) + bool(DNAtemplate) > 1:
+        raise ValueError("Should I use RNA, DNA or DNAtemplate?")
+    if bool(RNA) + bool(DNA) + bool(DNAtemplate) < 1:
+        raise ValueError("No informatio given!")
+    elif RNA:
+        DNA = makeDNA(RNA=RNA)
+        DNAtemplate = makeDNAtemplate(DNA=DNA)
+    elif DNA:
+        RNA = makeRNA(DNA=DNA)
+        DNAtemplate = makeDNAtemplate(DNA=DNA)
+    elif DNAtemplate:
+        DNA = makeDNA(DNAtemplate=DNAtemplate)
+        RNA = makeRNA(DNA=DNA)
 
     if "AUG" in RNA:
         n = RNA.index("AUG")
@@ -121,6 +136,7 @@ def run():
         ):
             chain = chain + amino[RNA[n : n + 3]] + "-"
             n = n + 3
+        chain = chain[:-1]
     else:
         chain = "no start codon"
 
@@ -130,4 +146,8 @@ def run():
     print("protein chain:       " + chain)
 
 
-run()
+DNA = ""
+DNAtemplate = "3'-TACCCCAGCGGACGC-5'"  # Example: DNAtemplate = "3'-TACCCCAGCGGACGC-5'"
+RNA = ""
+
+run(DNA, RNA, DNAtemplate)
