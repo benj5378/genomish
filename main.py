@@ -1,3 +1,5 @@
+import optparse
+
 amino = {
     "UUU": "Phe",
     "UUC": "Phe",
@@ -101,44 +103,49 @@ def makeDNA(RNA="", DNAtemplate=""):
     raise ValueError("Missing arguments")
 
 
-def makeRNA(DNA=""):
+def makeRNA(DNA):
     return DNA.replace("T", "U")
 
 
-def makeDNAtemplate(DNA=""):
+def makeDNAtemplate(DNA):
     return flip(complementary(DNA))
 
 
-def run(DNA="", RNA="", DNAtemplate=""):
-    chain = ""
+def makeProteinChain(RNA):
+    if "AUG" in RNA:
+        n = RNA.index("AUG")
+        chain = ""
 
+        while (
+            n + 3 < len(RNA)
+            and RNA[n:n + 3] in amino
+            and amino[RNA[n:n + 3]] != "Stop"
+        ):
+            chain = chain + amino[RNA[n:n + 3]] + "-"
+            n = n + 3
+        chain = chain[:-1]
+    else:
+        chain = "no start codon"
+
+    return chain
+
+
+def main(DNA="", RNA="", DNAtemplate=""):
     if bool(RNA) + bool(DNA) + bool(DNAtemplate) > 1:
         raise ValueError("Should I use RNA, DNA or DNAtemplate?")
     if bool(RNA) + bool(DNA) + bool(DNAtemplate) < 1:
         raise ValueError("No information given!")
     elif RNA:
         DNA = makeDNA(RNA=RNA)
-        DNAtemplate = makeDNAtemplate(DNA=DNA)
+        DNAtemplate = makeDNAtemplate(DNA)
     elif DNA:
-        RNA = makeRNA(DNA=DNA)
-        DNAtemplate = makeDNAtemplate(DNA=DNA)
+        RNA = makeRNA(DNA)
+        DNAtemplate = makeDNAtemplate(DNA)
     elif DNAtemplate:
         DNA = makeDNA(DNAtemplate=DNAtemplate)
         RNA = makeRNA(DNA=DNA)
 
-    if "AUG" in RNA:
-        n = RNA.index("AUG")
-
-        while (
-            n + 3 < len(RNA)
-            and RNA[n : n + 3] in amino
-            and amino[RNA[n : n + 3]] != "Stop"
-        ):
-            chain = chain + amino[RNA[n : n + 3]] + "-"
-            n = n + 3
-        chain = chain[:-1]
-    else:
-        chain = "no start codon"
+    chain = makeProteinChain(RNA)
 
     print("DNA complementary:   " + DNA + " / " + reverse(DNA))
     print("DNA template:        " + DNAtemplate + " / " + reverse(DNAtemplate) + "\n")
@@ -146,8 +153,9 @@ def run(DNA="", RNA="", DNAtemplate=""):
     print("protein chain:       " + chain)
 
 
-DNA = ""
-DNAtemplate = ""  # Example: DNAtemplate = "3'-TACCCCAGCGGACGC-5'"
-RNA = ""
-
-run(DNA, RNA, DNAtemplate)
+if __name__ == "__main__":
+    p = optparse.OptionParser()
+    p.add_option("--DNAtemplate")
+    options, arguments = p.parse_args()
+    DNAtemplate = options.DNAtemplate
+    main(DNAtemplate=DNAtemplate)

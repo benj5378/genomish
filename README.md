@@ -5,8 +5,8 @@ Genomish is a program for manipulating genetic sequences - so far manipulating b
 ## How to get started?
 
 1. Download the script and install Python, if you don't already have it installed (remember to check add to path!).
-2. Insert DNA, RNA or DNA-template into the variables at line 149-151.
-3. Open the terminal, `cd` into the folder with the script and run `python ./main.py` .
+2. Open the terminal, `cd` into the folder with the script
+3. Run `python ./main.py --DNAtemplate ` followed by your DNA sequence, for instance `python ./main.py --DNAtemplate 3'-TACCCCAGCGGACGC-5'`.
 
 ## Made in Denmark
 
