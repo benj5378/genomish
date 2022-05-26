@@ -115,7 +115,7 @@ def run(DNA="", RNA="", DNAtemplate=""):
     if bool(RNA) + bool(DNA) + bool(DNAtemplate) > 1:
         raise ValueError("Should I use RNA, DNA or DNAtemplate?")
     if bool(RNA) + bool(DNA) + bool(DNAtemplate) < 1:
-        raise ValueError("No informatio given!")
+        raise ValueError("No information given!")
     elif RNA:
         DNA = makeDNA(RNA=RNA)
         DNAtemplate = makeDNAtemplate(DNA=DNA)
@@ -147,7 +147,7 @@ def run(DNA="", RNA="", DNAtemplate=""):
 
 
 DNA = ""
-DNAtemplate = "3'-TACCCCAGCGGACGC-5'"  # Example: DNAtemplate = "3'-TACCCCAGCGGACGC-5'"
+DNAtemplate = ""  # Example: DNAtemplate = "3'-TACCCCAGCGGACGC-5'"
 RNA = ""
 
 run(DNA, RNA, DNAtemplate)
