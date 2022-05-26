@@ -1,30 +1,3 @@
-def flip(string):
-    output = string.replace("5'", "x").replace("3'", "5'").replace("x", "3'")
-    return output
-
-
-def reverse(string):
-    output = (
-        string.replace("3'", "x")
-        .replace("5'", "y")[::-1]
-        .replace("x", "3'")
-        .replace("y", "5'")
-    )
-    return output
-
-
-def complementary(string):
-    output = (
-        string.replace("A", "x")
-        .replace("T", "A")
-        .replace("x", "T")
-        .replace("C", "x")
-        .replace("G", "C")
-        .replace("x", "G")
-    )
-    return output
-
-
 amino = {
     "UUU": "Phe",
     "UUC": "Phe",
@@ -91,6 +64,33 @@ amino = {
     "UAG": "Stop",
     "UGA": "Stop",
 }
+
+
+def flip(string):
+    output = string.replace("5'", "x").replace("3'", "5'").replace("x", "3'")
+    return output
+
+
+def reverse(string):
+    output = (
+        string.replace("3'", "x")
+        .replace("5'", "y")[::-1]
+        .replace("x", "3'")
+        .replace("y", "5'")
+    )
+    return output
+
+
+def complementary(string):
+    output = (
+        string.replace("A", "x")
+        .replace("T", "A")
+        .replace("x", "T")
+        .replace("C", "x")
+        .replace("G", "C")
+        .replace("x", "G")
+    )
+    return output
 
 
 def makeDNA(RNA="", DNAtemplate=""):
