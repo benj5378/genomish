@@ -3,6 +3,16 @@ def flip(string):
     return output
 
 
+def reverse(string):
+    output = (
+        string.replace("3'", "x")
+        .replace("5'", "y")[::-1]
+        .replace("x", "3'")
+        .replace("y", "5'")
+    )
+    return output
+
+
 def complementary(string):
     output = (
         string.replace("A", "x")
@@ -83,9 +93,8 @@ amino = {
 }
 
 DNA = ""
-DNAtemplate = ""
+DNAtemplate = ""  # Example: DNAtemplate = "3'-TACCCCAGCGGACGC-5'"
 RNA = ""
-
 
 def run():
     global DNA
@@ -101,15 +110,24 @@ def run():
 
     RNA = DNA.replace("T", "U")
     DNAtemplate = flip(complementary(DNA))
-    n = RNA.index("AUG")
-    while RNA[n : n + 3] in amino and n + 3 < len(RNA):
-        if amino[RNA[n : n + 3]] == "Stop":
-            break
 
-        chain = chain + amino[RNA[n : n + 3]] + " "
-        n = n + 3
+    if "AUG" in RNA:
+        n = RNA.index("AUG")
 
-    print("DNA:\n" + DNA + "\n")
-    print("template:\n" + DNAtemplate + "\n")
-    print("mrna:\n" + RNA + "\n")
-    print("protein chain:\n" + chain)
+        while (
+            n + 3 < len(RNA)
+            and RNA[n : n + 3] in amino
+            and amino[RNA[n : n + 3]] != "Stop"
+        ):
+            chain = chain + amino[RNA[n : n + 3]] + "-"
+            n = n + 3
+    else:
+        chain = "no start codon"
+
+    print("DNA complementary:   " + DNA + " / " + reverse(DNA))
+    print("DNA template:        " + DNAtemplate + " / " + reverse(DNAtemplate) + "\n")
+    print("mRNA:                " + RNA + " / " + reverse(RNA) + "\n")
+    print("protein chain:       " + chain)
+
+
+run()
