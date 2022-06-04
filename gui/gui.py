@@ -2,7 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
 from main import makeDNA, makeRNA, makeProteinChain
 
-from ui_mainwindow import Ui_MainWindow
+from gui.ui_mainwindow import Ui_MainWindow
 
 # import main
 
@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_protein_chain.setPlainText("")
 
 
-if __name__ == "__main__":
+def run():
     app = QApplication(sys.argv)
 
     window = MainWindow()

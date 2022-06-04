@@ -1,4 +1,5 @@
 import optparse
+from gui import gui
 
 amino = {
     "UUU": "Phe",
@@ -156,6 +157,11 @@ def main(DNA="", RNA="", DNAtemplate=""):
 if __name__ == "__main__":
     p = optparse.OptionParser()
     p.add_option("--DNAtemplate")
+    p.add_option("-g", "--gui", action="store_true")
     options, arguments = p.parse_args()
+    
+    if options.gui:
+        gui.run()
+
     DNAtemplate = options.DNAtemplate
     main(DNAtemplate=DNAtemplate)
