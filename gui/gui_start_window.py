@@ -1,6 +1,5 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
-from main import makeDNA, makeRNA, makeProteinChain
 
 from gui.ui_start_window import Ui_MainWindow
 from gui import gui_sequence_manipulation
@@ -16,9 +15,11 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.pushButton_sequence_manipulation.clicked.connect(
-            self.pushButton_sequence_manipulation_clicked)
+            self.pushButton_sequence_manipulation_clicked
+        )
         self.ui.pushButton_sequence_alignment.clicked.connect(
-            self.pushButton_sequence_alignment_clicked)
+            self.pushButton_sequence_alignment_clicked
+        )
 
     def pushButton_sequence_manipulation_clicked(self):
         gui_sequence_manipulation_window = gui_sequence_manipulation.MainWindow(self)

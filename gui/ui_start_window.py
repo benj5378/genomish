@@ -8,15 +8,18 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QMainWindow, QMenuBar, QPushButton,
-    QSizePolicy, QStatusBar, QWidget)
+from PySide6.QtCore import (
+    QCoreApplication,
+    QMetaObject,
+    QRect,
+)
+from PySide6.QtWidgets import (
+    QMenuBar,
+    QPushButton,
+    QStatusBar,
+    QWidget,
+)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -26,10 +29,14 @@ class Ui_MainWindow(object):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.pushButton_sequence_manipulation = QPushButton(self.centralwidget)
-        self.pushButton_sequence_manipulation.setObjectName(u"pushButton_sequence_manipulation")
+        self.pushButton_sequence_manipulation.setObjectName(
+            u"pushButton_sequence_manipulation"
+        )
         self.pushButton_sequence_manipulation.setGeometry(QRect(10, 10, 131, 61))
         self.pushButton_sequence_alignment = QPushButton(self.centralwidget)
-        self.pushButton_sequence_alignment.setObjectName(u"pushButton_sequence_alignment")
+        self.pushButton_sequence_alignment.setObjectName(
+            u"pushButton_sequence_alignment"
+        )
         self.pushButton_sequence_alignment.setGeometry(QRect(150, 10, 131, 61))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -43,13 +50,18 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.pushButton_sequence_manipulation.setText(QCoreApplication.translate("MainWindow", u"Sequence\n"
-"manipulation", None))
-        self.pushButton_sequence_alignment.setText(QCoreApplication.translate("MainWindow", u"Sequence\n"
-"alignment", None))
-    # retranslateUi
+        MainWindow.setWindowTitle(
+            QCoreApplication.translate("MainWindow", u"MainWindow", None)
+        )
+        self.pushButton_sequence_manipulation.setText(
+            QCoreApplication.translate("MainWindow", u"Sequence\n" "manipulation", None)
+        )
+        self.pushButton_sequence_alignment.setText(
+            QCoreApplication.translate("MainWindow", u"Sequence\n" "alignment", None)
+        )
 
+    # retranslateUi
