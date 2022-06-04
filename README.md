@@ -11,4 +11,4 @@ Genomish is a program for manipulating genetic sequences - so far manipulating b
 
 ## Made in Denmark
 
-Made by Benjamin Sommerlund and Benjamin Bræstrup Sayoc (benj5378), both from the University of Copenhagen.
+Made by Benjamin Sommerlund ([xyz6fyma](https://github.com/xyz6fyma)) and Benjamin Bræstrup Sayoc ([benj5378](https://github.com/benj5378)), both from the University of Copenhagen.
