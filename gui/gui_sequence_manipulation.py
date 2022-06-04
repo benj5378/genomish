@@ -35,8 +35,8 @@ class MainWindow(QMainWindow):
 
     def text_to_RICH(self, text):
         return f"""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-            <html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /></head><body style=" font-family:'Courier New'; font-size:14pt; font-weight:400;">
-            <span>{text}</span></body></html>"""
+            <html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /></head>
+            <body style=" font-family:'Courier New'; font-size:14pt; font-weight:400;"><span>{text}</span></body></html>"""
 
     def pushButton_run_clicked(self):
         color = self.sequence_to_RICH_in_color
