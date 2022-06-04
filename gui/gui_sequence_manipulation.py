@@ -2,14 +2,12 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
 from main import makeDNA, makeRNA, makeProteinChain
 
-from gui.ui_mainwindow import Ui_MainWindow
-
-# import main
+from gui.ui_sequence_manipulation import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
+    def __init__(self, parent):
+        super(MainWindow, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -60,7 +58,7 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_protein_chain.setPlainText("")
 
 
-def run():
+if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     window = MainWindow()
