@@ -14,6 +14,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.pushButton_run.clicked.connect(self.pushButton_run_clicked)
+        self.ui.pushButton_clear_all.clicked.connect(self.pushButton_clear_all_clicked)
 
     def pushButton_run_clicked(self):
         DNAtemplate = self.ui.textEdit_DNA_template.toPlainText()
@@ -22,6 +23,12 @@ class MainWindow(QMainWindow):
         RNA = makeRNA(DNA=DNA)
         self.ui.textEdit_mRNA.setPlainText(RNA)
         self.ui.textEdit_protein_chain.setPlainText(makeProteinChain(makeRNA(DNA)))
+
+    def pushButton_clear_all_clicked(self):
+        self.ui.textEdit_DNA.setPlainText("")
+        self.ui.textEdit_DNA_template.setPlainText("")
+        self.ui.textEdit_mRNA.setPlainText("")
+        self.ui.textEdit_protein_chain.setPlainText("")
 
 
 if __name__ == "__main__":
