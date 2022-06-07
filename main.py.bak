@@ -154,16 +154,16 @@ def overlap(string1, string2):
     c1=len(string1)
     c2=0
     
-    for i in range(len(string1)):
-        c1=c1-1
+    for i in range(len(string1)+len(string2)-1):
+        if c1!=0:
+            c1=c1-1
+        
+        else:
+            c2=c2+1
+        
         slicel=min(len(string1)-c1,len(string2)-c2)
         plist=plist+plateau(string1[c1:c1+slicel],string2[c2:c2+slicel],c1,c2)
 
-    for i in range(len(string2)-1):
-        c2=c2+1
-        slicel=min(len(string1)-c1,len(string2)-c2)
-        plist=plist+plateau(string1[c1:c1+slicel],string2[c2:c2+slicel],c1,c2)
-    
     return(plist)
 
 
