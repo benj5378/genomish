@@ -157,41 +157,54 @@ def main(DNA="", RNA="", DNAtemplate=""):
     print("mRNA:                " + RNA + " / " + reverse(RNA) + "\n")
     print("protein chain:       " + chain)
 
+
 def plateau(string1, string2, c1, c2):
-    #returns plateaus of 2 strings with equal lengths as slices
+    # returns plateaus of 2 strings with equal lengths as slices
     plist = []
     c = 0
     for i in range(len(string1)):
         if string1[i] == string2[i]:
             c = c + 1
-            
+
         elif c != 0:
             plist.append((c1 + i - c, c1 + i, c2 + i - c, c2 + i))
             c = 0
-    
+
     if c != 0:
-        plist.append((c1 + len(string1) - c, c1 + len(string1),c2 + len(string2) - c, c2 + len(string2)))
-    
-    return(plist)
+        plist.append(
+            (
+                c1 + len(string1) - c,
+                c1 + len(string1),
+                c2 + len(string2) - c,
+                c2 + len(string2),
+            )
+        )
+
+    return plist
 
 
 def overlap(string1, string2):
-    #returns all shifted plateaus between 2 strings as slices
+    # returns all shifted plateaus between 2 strings as slices
     plist = []
     c1 = len(string1)
     c2 = 0
-    
+
     for i in range(len(string1)):
         c1 = c1 - 1
         slicel = min(len(string1) - c1, len(string2) - c2)
-        plist = plist + plateau(string1[c1 : c1 + slicel], string2[c2 : c2 + slicel], c1, c2)
+        plist = plist + plateau(
+            string1[c1 : c1 + slicel], string2[c2 : c2 + slicel], c1, c2
+        )
 
     for i in range(len(string2) - 1):
         c2 = c2 + 1
-        slicel=min(len(string1) - c1, len(string2) - c2)
-        plist=plist + plateau(string1[c1 : c1 + slicel], string2[c2 : c2 + slicel], c1, c2)
-    
-    return(plist)
+        slicel = min(len(string1) - c1, len(string2) - c2)
+        plist = plist + plateau(
+            string1[c1 : c1 + slicel], string2[c2 : c2 + slicel], c1, c2
+        )
+
+    return plist
+
 
 if __name__ == "__main__":
     p = optparse.OptionParser()

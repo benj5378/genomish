@@ -55,23 +55,23 @@ from PySide6.QtWidgets import (
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
+            MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 440)
         self.centralwidget = QWidget(MainWindow)
-        self.centralwidget.setObjectName(u"centralwidget")
+        self.centralwidget.setObjectName("centralwidget")
         self.textEdit_sequence = QTextEdit(self.centralwidget)
-        self.textEdit_sequence.setObjectName(u"textEdit_sequence")
+        self.textEdit_sequence.setObjectName("textEdit_sequence")
         self.textEdit_sequence.setGeometry(QRect(10, 10, 781, 321))
         self.pushButton_align = QPushButton(self.centralwidget)
-        self.pushButton_align.setObjectName(u"pushButton_align")
+        self.pushButton_align.setObjectName("pushButton_align")
         self.pushButton_align.setGeometry(QRect(680, 340, 111, 41))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
+        self.menubar.setObjectName("menubar")
         self.menubar.setGeometry(QRect(0, 0, 800, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
+        self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
@@ -82,12 +82,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
-            QCoreApplication.translate("MainWindow", u"MainWindow", None)
+            QCoreApplication.translate("MainWindow", "MainWindow", None)
         )
         self.textEdit_sequence.setHtml(
             QCoreApplication.translate(
                 "MainWindow",
-                u'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">\n'
+                '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">\n'
                 '<html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /><style type="text/css">\n'
                 "p, li { white-space: pre-wrap; }\n"
                 "hr { height: 1px; border-width: 0; }\n"
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
             )
         )
         self.pushButton_align.setText(
-            QCoreApplication.translate("MainWindow", u"ALIGN", None)
+            QCoreApplication.translate("MainWindow", "ALIGN", None)
         )
 
     # retranslateUi

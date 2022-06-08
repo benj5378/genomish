@@ -12,24 +12,25 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.pushButton_run.clicked.connect(self.pushButton_run_clicked)
-        self.ui.pushButton_clear_all.clicked.connect(
-            self.pushButton_clear_all_clicked)
+        self.ui.pushButton_clear_all.clicked.connect(self.pushButton_clear_all_clicked)
 
     def sequence_to_RICH_in_color(self, sequence):
         rich = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
             <html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /></head><body style=" font-family:'Courier New'; font-size:14pt; font-weight:400;">"""
         for base in sequence:
-            if base == 'A':
+            if base == "A":
                 color = "blue"
-            elif base == 'C':
+            elif base == "C":
                 color = "red"
-            elif base == 'G':
+            elif base == "G":
                 color = "green"
-            elif base == 'T' or base == 'U':
+            elif base == "T" or base == "U":
                 color = "magenta"
             else:
                 color = "black"
-            rich = rich + """<span style="color: """ + color + """">""" + base + "</span>"
+            rich = (
+                rich + """<span style="color: """ + color + """">""" + base + "</span>"
+            )
         rich = rich + "</body></html>"
         return rich
 
