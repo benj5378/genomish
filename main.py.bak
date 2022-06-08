@@ -1,4 +1,5 @@
 import optparse
+from gui import gui_start_window
 
 amino = {
     "UUU": "Phe",
@@ -118,10 +119,10 @@ def makeProteinChain(RNA):
 
         while (
             n + 3 < len(RNA)
-            and RNA[n:n + 3] in amino
-            and amino[RNA[n:n + 3]] != "Stop"
+            and RNA[n : n + 3] in amino
+            and amino[RNA[n : n + 3]] != "Stop"
         ):
-            chain = chain + amino[RNA[n:n + 3]] + "-"
+            chain = chain + amino[RNA[n : n + 3]] + "-"
             n = n + 3
         chain = chain[:-1]
     else:
@@ -130,41 +131,8 @@ def makeProteinChain(RNA):
     return chain
 
 
-def plateau(string1,string2,c1,c2):
-    #returns plateaus of 2 strings with equal lengths as slices
-    plist=[]
-    c=0
-    for i in range(len(string1)):
-        if string1[i]==string2[i]:
-            c=c+1
-            
-        elif c!=0:
-            plist.append((c1+i-c,c1+i,c2+i-c,c2+i))
-            c=0
-    
-    if c!=0:
-        plist.append((c1+len(string1)-c,c1+len(string1),c2+len(string2)-c,c2+len(string2)))
-    
-    return(plist)
-
-
-def overlap(string1, string2):
-    #returns all shifted plateaus between 2 strings as slices
-    plist=[]
-    c1=len(string1)
-    c2=0
-    
-    for i in range(len(string1)+len(string2)-1):
-        if c1!=0:
-            c1=c1-1
-        
-        else:
-            c2=c2+1
-        
-        slicel=min(len(string1)-c1,len(string2)-c2)
-        plist=plist+plateau(string1[c1:c1+slicel],string2[c2:c2+slicel],c1,c2)
-
-    return(plist)
+def align(sequence):
+    return "Coming soon 1", "Coming soon 2"
 
 
 def main(DNA="", RNA="", DNAtemplate=""):
@@ -193,6 +161,11 @@ def main(DNA="", RNA="", DNAtemplate=""):
 if __name__ == "__main__":
     p = optparse.OptionParser()
     p.add_option("--DNAtemplate")
+    p.add_option("-g", "--gui", action="store_true")
     options, arguments = p.parse_args()
+
+    if options.gui:
+        gui_start_window.run()
+
     DNAtemplate = options.DNAtemplate
     main(DNAtemplate=DNAtemplate)
