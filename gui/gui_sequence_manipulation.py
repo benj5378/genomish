@@ -2,14 +2,12 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
 from main import makeDNA, makeRNA, makeProteinChain
 
-from ui_mainwindow import Ui_MainWindow
-
-# import main
+from gui.ui_sequence_manipulation import Ui_MainWindow
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
+    def __init__(self, parent):
+        super(MainWindow, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -19,10 +17,7 @@ class MainWindow(QMainWindow):
 
     def sequence_to_RICH_in_color(self, sequence):
         rich = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-            <html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /><style type="text/css">
-            p, li { white-space: pre-wrap; }
-            hr { height: 1px; border-width: 0; }
-            </style></head><body style=" font-family:'Segoe UI'; font-size:14pt; font-weight:400; font-style:normal;">"""
+            <html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /></head><body style=" font-family:'Courier New'; font-size:14pt; font-weight:400;">"""
         for base in sequence:
             if base == 'A':
                 color = "blue"
@@ -38,6 +33,11 @@ class MainWindow(QMainWindow):
         rich = rich + "</body></html>"
         return rich
 
+    def text_to_RICH(self, text):
+        return f"""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+            <html><head><meta name="qrichtext" content="1" /><meta charset="utf-8" /></head>
+            <body style=" font-family:'Courier New'; font-size:14pt; font-weight:400;"><span>{text}</span></body></html>"""
+
     def pushButton_run_clicked(self):
         color = self.sequence_to_RICH_in_color
 
@@ -51,7 +51,7 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_mRNA.setHtml(color(RNA))
 
         chain = makeProteinChain(RNA)
-        self.ui.textEdit_protein_chain.setPlainText(chain)
+        self.ui.textEdit_protein_chain.setHtml(self.text_to_RICH(chain))
 
     def pushButton_clear_all_clicked(self):
         self.ui.textEdit_DNA.setPlainText("")

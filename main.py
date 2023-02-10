@@ -1,4 +1,5 @@
 import optparse
+from gui import gui_start_window
 
 amino = {
     "UUU": "Phe",
@@ -118,10 +119,10 @@ def makeProteinChain(RNA):
 
         while (
             n + 3 < len(RNA)
-            and RNA[n:n + 3] in amino
-            and amino[RNA[n:n + 3]] != "Stop"
+            and RNA[n : n + 3] in amino
+            and amino[RNA[n : n + 3]] != "Stop"
         ):
-            chain = chain + amino[RNA[n:n + 3]] + "-"
+            chain = chain + amino[RNA[n : n + 3]] + "-"
             n = n + 3
         chain = chain[:-1]
     else:
@@ -226,6 +227,11 @@ def main(DNA="", RNA="", DNAtemplate=""):
 if __name__ == "__main__":
     p = optparse.OptionParser()
     p.add_option("--DNAtemplate")
+    p.add_option("-g", "--gui", action="store_true")
     options, arguments = p.parse_args()
+
+    if options.gui:
+        gui_start_window.run()
+
     DNAtemplate = options.DNAtemplate
     main(DNAtemplate=DNAtemplate)
