@@ -130,6 +130,76 @@ def makeProteinChain(RNA):
     return chain
 
 
+def offsetToSpace(offset : int):
+    space = ""
+    for j in range(0, abs(offset)):
+        space = space + " "
+    return space
+
+
+def sequenceAlignNBase(seq1 : str, seq2 : str, n : int) -> str:
+    """Align seq1 to the n base of seq2"""
+    # print(f"sequenceAlignNBase({seq1}, {seq2}, {n}")
+    # Iterate over each base in seq2
+    for i in range(0, len(seq2)):
+        # print(i)
+        # Check if base of seq1 mathces the i base of seq2
+        if seq1[n] == seq2[i]:
+            if __name__ == "__main__" and False:
+                print("Found match")
+                # Make the number of spaces offset needed to align sequences
+                space = offsetToSpace(i - n)
+                if i - n > 0:
+                    print(space + seq1)
+                    print(seq2)
+                else:
+                    print(seq1)
+                    print(space + seq2)
+            else:
+                # Returns how much seq1 if offsetted compared to seq2
+                return i - n
+            break
+
+
+def getNumMatching(seq1 : str, seq2 : str):
+    if len(seq1) > len(seq2):
+        max = len(seq2)
+    else:
+        max = len(seq1)
+
+    for i in range(0, max):
+        if seq1[i] != seq2[i]:
+            return i
+    return i + 1  # in case they all matched
+
+
+def sequenceAlign(seq1 : str, seq2 : str) -> None:
+    progression = 0
+    line1 = ""
+    line2 = ""
+
+    for i in range(0, 8):
+        offset = sequenceAlignNBase(seq1, seq2, 0)
+        if offset > 0:
+            line1 = line1[:progression] + offsetToSpace(offset) + seq1
+            line2 = line2[:progression] + seq2
+        else:
+            line1 = line1[:progression] + seq1
+            line2 = line2[:progression] + offsetToSpace(offset) + seq2
+
+        progression = progression + offset
+        seq1 = line1[progression:]
+        seq2 = line2[progression:]
+        progression = progression + getNumMatching(seq1, seq2)
+        seq1 = line1[progression:]
+        seq2 = line2[progression:]
+        # print(seq1)
+        # print(seq2)
+
+    print(line1)
+    print(line2)
+
+
 def main(DNA="", RNA="", DNAtemplate=""):
     if bool(RNA) + bool(DNA) + bool(DNAtemplate) > 1:
         raise ValueError("Should I use RNA, DNA or DNAtemplate?")
