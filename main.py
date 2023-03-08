@@ -118,11 +118,12 @@ def makeProteinChain(RNA):
         chain = ""
 
         while (
-            n + 3 < len(RNA)
+            n + 3 <= len(RNA)
             and RNA[n : n + 3] in amino
             and amino[RNA[n : n + 3]] != "Stop"
         ):
-            chain = chain + amino[RNA[n : n + 3]] + "-"
+            if not RNA[n : n + 3] in amino:
+                raise TypeError(f"Could not finde {RNA[n : n + 3]}")
             n = n + 3
         chain = chain[:-1]
     else:
