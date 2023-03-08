@@ -175,7 +175,21 @@ def getNumMatching(seq1 : str, seq2 : str):
     return i + 1  # in case they all matched
 
 
-def sequenceAlign(seq1 : str, seq2 : str) -> None:
+def spacify(seq: str, numBases=3, numBlocks=5):
+    output = ""
+    currentBlock = 0
+    for i in range(0, len(seq)):
+        if (i + 1) % numBases == 0:  # i + 1 as first base i = 0 is 1
+            output = output + seq[i - 2 : i + 1] + " "
+
+            currentBlock = currentBlock + 1
+            if currentBlock == numBlocks    :
+                output = output + "\n"
+                currentBlock = 0
+    return output
+
+
+def sequenceAlign(seq1: str, seq2: str) -> None:
     progression = 0
     line1 = ""
     line2 = ""
