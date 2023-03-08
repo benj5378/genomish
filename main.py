@@ -112,22 +112,24 @@ def makeDNAtemplate(DNA):
     return flip(complementary(DNA))
 
 
-def makeProteinChain(RNA):
-    if "AUG" in RNA:
+def makeProteinChain(RNA, delimiter="-", startAtAUG=True):
+    if startAtAUG and "AUG" not in RNA:
+        raise ValueError("Looking for AUG but no AUG in RNA")
+    elif startAtAUG:
         n = RNA.index("AUG")
-        chain = ""
-
-        while (
-            n + 3 <= len(RNA)
-            and RNA[n : n + 3] in amino
-            and amino[RNA[n : n + 3]] != "Stop"
-        ):
-            if not RNA[n : n + 3] in amino:
-                raise TypeError(f"Could not finde {RNA[n : n + 3]}")
-            n = n + 3
-        chain = chain[:-1]
     else:
-        chain = "no start codon"
+        n = 0
+    chain = ""
+
+    while (
+        n + 3 <= len(RNA)
+        and amino[RNA[n : n + 3]] != "Stop"
+    ):
+        if not RNA[n : n + 3] in amino:
+            raise TypeError(f"Could not finde {RNA[n : n + 3]}")
+        chain = chain + amino[RNA[n : n + 3]] + delimiter
+        n = n + 3
+    chain = chain[:-1]
 
     return chain
 
