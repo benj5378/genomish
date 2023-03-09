@@ -66,7 +66,30 @@ class Protein:
         "UUU": "Phe",
     }
 
-    def __init__(self, RNA: str, startAtAUG: bool=False) -> None:
+    aminoacidMasses = {
+        "Ala": 89.094,
+        "Arg": 174.203,
+        "Asn": 132.119,
+        "Asp": 133.104,
+        "Cys": 121.154,
+        "Gln": 146.146,
+        "Glu": 147.131,
+        "Gly": 75.067,
+        "His": 155.156,
+        "Ile": 131.175,
+        "Leu": 131.175,
+        "Lys": 146.189,
+        "Met": 149.208,
+        "Phe": 165.192,
+        "Pro": 115.132,
+        "Ser": 105.093,
+        "Thr": 119.119,
+        "Trp": 204.228,
+        "Tyr": 181.191,
+        "Val": 117.148,
+    }
+
+    def __init__(self, RNA: str, startAtAUG: bool = False) -> None:
         if startAtAUG and "AUG" not in RNA:
             raise ValueError("Looking for AUG but no AUG in RNA")
         elif startAtAUG:
@@ -83,3 +106,9 @@ class Protein:
 
     def __str__(self):
         return "-".join(self.chain)
+
+    def getMass(self):
+        mass = 0.0
+        for aminoacid in self.chain:
+            mass = mass + self.aminoacidMasses[aminoacid]
+        return mass
