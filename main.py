@@ -1,72 +1,6 @@
 import optparse
-from gui import gui_start_window
-
-amino = {
-    "UUU": "Phe",
-    "UUC": "Phe",
-    "UUA": "Leu",
-    "UUG": "Leu",
-    "CUU": "Leu",
-    "CUC": "Leu",
-    "CUA": "Leu",
-    "CUG": "Leu",
-    "AUU": "Ile",
-    "AUC": "Ile",
-    "AUA": "Ile",
-    "AUG": "Met",
-    "GUU": "Val",
-    "GUC": "Val",
-    "GUA": "Val",
-    "GUG": "Val",
-    "UCU": "Ser",
-    "UCC": "Ser",
-    "UCA": "Ser",
-    "UCG": "Ser",
-    "CCU": "Pro",
-    "CCC": "Pro",
-    "CCA": "Pro",
-    "CCG": "Pro",
-    "ACU": "Thr",
-    "ACC": "Thr",
-    "ACA": "Thr",
-    "ACG": "Thr",
-    "GCU": "Ala",
-    "GCC": "Ala",
-    "GCA": "Ala",
-    "GCG": "Ala",
-    "UAU": "Tyr",
-    "UAC": "Tyr",
-    "CAU": "His",
-    "CAC": "His",
-    "CAA": "Gln",
-    "CAG": "Gln",
-    "AAU": "Asn",
-    "AAC": "Asn",
-    "AAA": "Lys",
-    "AAG": "Lys",
-    "GAU": "Asp",
-    "GAC": "Asp",
-    "GAA": "Glu",
-    "GAG": "Glu",
-    "UGU": "Cys",
-    "UGC": "Cys",
-    "UGG": "Trp",
-    "CGU": "Arg",
-    "CGC": "Arg",
-    "CGA": "Arg",
-    "CGG": "Arg",
-    "AGA": "Arg",
-    "AGG": "Arg",
-    "AGU": "Ser",
-    "AGC": "Ser",
-    "GGU": "Gly",
-    "GGC": "Gly",
-    "GGA": "Gly",
-    "GGG": "Gly",
-    "UAA": "Stop",
-    "UAG": "Stop",
-    "UGA": "Stop",
-}
+from protein import Protein
+# from gui import gui_start_window
 
 
 def flip(string):
@@ -110,29 +44,6 @@ def makeRNA(DNA):
 
 def makeDNAtemplate(DNA):
     return flip(complementary(DNA))
-
-
-def makeProteinChain(RNA, delimiter="-", startAtAUG=True):
-    if startAtAUG and "AUG" not in RNA:
-        raise ValueError("Looking for AUG but no AUG in RNA")
-    elif startAtAUG:
-        n = RNA.index("AUG")
-    else:
-        n = 0
-    chain = ""
-
-    while (
-        n + 3 <= len(RNA)
-        and amino[RNA[n : n + 3]] != "Stop"
-    ):
-        if not RNA[n : n + 3] in amino:
-            raise TypeError(f"Could not finde {RNA[n : n + 3]}")
-        chain = chain + amino[RNA[n : n + 3]] + delimiter
-        n = n + 3
-    chain = chain[:-1]
-
-    return chain
-
 
 def offsetToSpace(offset : int):
     space = ""
@@ -233,7 +144,8 @@ def main(DNA="", RNA="", DNAtemplate=""):
         DNA = makeDNA(DNAtemplate=DNAtemplate)
         RNA = makeRNA(DNA=DNA)
 
-    chain = makeProteinChain(RNA)
+    protein = Protein(RNA)
+    chain = print(protein)
 
     print("DNA complementary:   " + DNA + " / " + reverse(DNA))
     print("DNA template:        " + DNAtemplate + " / " + reverse(DNAtemplate) + "\n")
