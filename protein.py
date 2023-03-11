@@ -1,3 +1,5 @@
+import rna
+
 class Protein:
     codons = {
         "AAA": "Lys",
@@ -89,20 +91,20 @@ class Protein:
         "Val": 117.148,
     }
 
-    def __init__(self, RNA: str, startAtAUG: bool = False) -> None:
+    def __init__(self, RNA: rna.RNA, startAtAUG: bool = False) -> None:
         if startAtAUG and "AUG" not in RNA:
             raise ValueError("Looking for AUG but no AUG in RNA")
         elif startAtAUG:
-            i = RNA.index("AUG")
+            i = RNA.sequence.index("AUG")
         else:
             i = 0
 
         self.chain = []
-        while i + 3 <= len(RNA) and self.codons[RNA[i : i + 3]] != "Stop":
-            if not RNA[i : i + 3] in self.codons:
-                raise TypeError(f"Could not finde {RNA[i : i + 3]}")
-            self.chain.append(self.codons[RNA[i : i + 3]])
-            i = i + 3
+        while i + 3 <= len(RNA) and self.codons[RNA.sequence[i : i + 3]] != "Stop":
+            if not RNA.sequence[i : i + 3] in self.codons:
+                raise TypeError(f"Could not finde {RNA.sequence[i : i + 3]}")
+            self.chain.append(self.codons[RNA.sequence[i : i + 3]])
+            i += 3
 
     def __str__(self):
         return "-".join(self.chain)
@@ -110,5 +112,5 @@ class Protein:
     def getMass(self):
         mass = 0.0
         for aminoacid in self.chain:
-            mass = mass + self.aminoacidMasses[aminoacid]
+            mass += self.aminoacidMasses[aminoacid]
         return mass
