@@ -6,11 +6,6 @@ import rna
 # from gui import gui_start_window
 
 
-def flip(string):
-    output = string.replace("5'", "x").replace("3'", "5'").replace("x", "3'")
-    return output
-
-
 def main(DNA="", RNA="", DNAtemplate=""):
     if bool(RNA) + bool(DNA) + bool(DNAtemplate) > 1:
         raise ValueError("Should I use RNA, DNA or DNAtemplate?")

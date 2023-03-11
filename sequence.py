@@ -90,20 +90,8 @@ class Sequence:
             # print(i)
             # Check if base of seq1 mathces the i base of seq2
             if seq1[n] == seq2[i]:
-                if __name__ == "__main__" and False:
-                    print("Found match")
-                    # Make the number of spaces offset needed to align sequences
-                    space = offsetToSpace(i - n)
-                    if i - n > 0:
-                        print(space + seq1)
-                        print(seq2)
-                    else:
-                        print(seq1)
-                        print(space + seq2)
-                else:
-                    # Returns how much seq1 if offsetted compared to seq2
-                    return i - n
-                break
+                # Returns how much seq1 if offsetted compared to seq2
+                return i - n
 
         raise RuntimeError("FATAL ERROR")  # Hotfix warning
 
