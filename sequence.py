@@ -100,3 +100,11 @@ class Sequence:
         for j in range(0, abs(offset)):
             space = space + " "
         return space
+
+    def cut(self, start, stop):
+        self.sequence = self.sequence[start:stop]
+
+    def getCut(self, start, stop):
+        new = copy.deepcopy(self)
+        new.cut(start, stop)
+        return new
