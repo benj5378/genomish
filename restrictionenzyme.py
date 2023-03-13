@@ -1,3 +1,4 @@
+from __future__ import annotations
 import json
 import re
 import sequence
@@ -24,8 +25,16 @@ class RestrictionEnzyme:
             self.name = jsonObject["enzyme name"]
             self.site = jsonObject["recognition sequence with cleavage site"]
 
-    def cutSequence(self, seq: sequence.Sequence) -> list:
-        """Will fail at overlapping recognitionsite matches!"""
+    def __repr__(self):
+        return f"<RestrictionEnzyme {self.name}>"
+
+    def isValid(self) -> bool:
+        """Returns true of recognition sequence with cleavage site only hold the characters CAGTU^"""
+        allowed = "CAGTUN^"
+        return (
+            all(character in allowed for character in self.site)
+            and self.site.find("^") != -1
+        )
 
     def getRecognitionSite(self):
         # Remove cut site identifier. Replace N with wildcard
@@ -63,3 +72,16 @@ class RestrictionEnzyme:
         fragments.append(seq.getCut(cutLocation, len(seq.sequence)))
 
         return fragments
+
+
+class RestrictionEnzymeLibrary:
+    def getRestrictionEnzymes(self):
+        with open("restriction_enzymes.json", "r") as file:
+            database = json.load(file)
+
+        for jsonObject in database:
+            r = RestrictionEnzyme(jsonObject=jsonObject)
+            print(RestrictionEnzyme)
+            if not r.isValid():
+                continue
+            yield r

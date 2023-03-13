@@ -1,5 +1,7 @@
 from __future__ import annotations
 import copy
+import re
+import restrictionenzyme
 
 
 class Sequence:
@@ -108,3 +110,14 @@ class Sequence:
         new = copy.deepcopy(self)
         new.cut(start, stop)
         return new
+
+    def getRestrictionEnzymes(self) -> tuple(restrictionenzyme.RestrictionEnzyme, int):
+        library = restrictionenzyme.RestrictionEnzymeLibrary()
+        l = list()
+
+        for restrictionEnzyme in library.getRestrictionEnzymes():
+            print(restrictionEnzyme)
+            for cutLocation in restrictionEnzyme.getCutLocations(self):
+                l.append((restrictionEnzyme, cutLocation))
+
+        return l
