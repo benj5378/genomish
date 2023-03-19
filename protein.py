@@ -1,5 +1,6 @@
 import rna
 
+
 class Protein:
     codons = {
         "AAA": "Lys",
@@ -111,6 +112,8 @@ class Protein:
 
     def getMass(self):
         mass = 0.0
-        for aminoacid in self.chain:
+        for i, aminoacid in enumerate(self.chain):
             mass += self.aminoacidMasses[aminoacid]
+            if i > 0:
+                mass -= 18.015  # Subtract H2O for each amino acid linked together
         return mass
