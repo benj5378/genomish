@@ -121,3 +121,11 @@ class Sequence:
                 l.append((restrictionEnzyme, cutLocation))
 
         return l
+
+    def getMismatches(self, seq: Sequence) -> list[(int, str)]:
+        """Assumes sequences to be aligned. Returns tuples of mismatch index and base of passed sequence"""
+        mismatches = []
+        for i, (s1, s2) in enumerate(zip(self.sequence, seq.sequence)):
+            if s1 != s2:
+                mismatches.append((i, s2))
+        return mismatches
